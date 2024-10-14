@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context=".HomePage">
+
     <!-- "learning python" text -->
     <TextView
         android:id="@+id/LearningPython"
@@ -17,6 +18,7 @@
         android:textColor="#FFFFFF"
         android:layout_marginTop="30dp"
         android:text="Learning Python" />
+
     <!-- Python icon -->
     <ImageView
         android:id="@+id/PythonIcon"
@@ -25,6 +27,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
         android:src="@drawable/python" />
+
     <!-- "with Libby Pashinsky" text -->
     <TextView
         android:id="@+id/WithLibbyPashinsky"
@@ -35,6 +38,7 @@
         android:textSize="18dp"
         android:text="with Libby Pashinsky"
         android:textColor="#FFFFFF" />
+
     <!-- Start button -->
     <Button
         android:id="@+id/buttonStart"
@@ -44,10 +48,19 @@
         android:layout_marginTop="590dp"
         android:text="Press on button to continue"
         android:textSize="20dp" />
-    <!-- Login fragment container -->
+
+    <!-- Login fragment container (now below Register) -->
     <FrameLayout
-        android:id="@+id/fragment_homepage_to_login"
+        android:id="@+id/fragment_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" />
+
+    <!-- Register fragment container -->
+    <FrameLayout
+        android:id="@+id/fragment_register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
 </FrameLayout>

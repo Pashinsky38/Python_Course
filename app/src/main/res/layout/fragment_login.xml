@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/night"
     tools:context=".LoginFragment">
+
     <!-- EditText for entering email -->
     <EditText
         android:id="@+id/EnterEmail"
@@ -20,17 +21,19 @@
         android:textColorHint="#FFFFFF"
         android:hint="Enter the Email..."
         android:inputType="text" />
+
     <!-- EditText for entering password -->
     <EditText
         android:id="@+id/EnterPassword"
         android:layout_width="300dp"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
         android:ems="10"
         android:hint="Enter the password..."
         android:inputType="textPassword" />
+
     <!-- Button for logging in -->
     <Button
         android:id="@+id/buttonLogin"
@@ -39,6 +42,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="250dp"
         android:text="Login" />
+
     <!-- Button for signing up -->
     <Button
         android:id="@+id/buttonSignUp"
@@ -47,7 +51,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Sign up" />
-    <!-- Button for going back to HomePage-->
+
+    <!-- Button for going back to HomePage -->
     <Button
         android:id="@+id/goBack"
         android:layout_width="150dp"
