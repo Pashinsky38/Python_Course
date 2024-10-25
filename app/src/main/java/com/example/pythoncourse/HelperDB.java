@@ -1,43 +1,77 @@
 package com.example.pythoncourse;
+
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.Nullable;
+import android.content.ContentValues;
+import android.widget.Toast;
+
 public class HelperDB extends SQLiteOpenHelper {
-    // Database file name for storing user information
-    public static final String DB_FILE = "user_management.db";
-    // Table and column names for the Users table
+
+    private static final String DATABASE_NAME = "user_management.db";
+    private static final int DATABASE_VERSION = 1;
     public static final String USERS_TABLE = "Users";
     public static final String USER_NAME = "UserName";
-    public static final String USER_EMAIL = "UserEmail";
     public static final String USER_PWD = "UserPassword";
+    public static final String USER_EMAIL = "UserEmail";
     public static final String USER_PHONE = "UserPhone";
-    // Constructor for the HelperDB class
-    public HelperDB(@Nullable Context context) {
-// Call to the parent SQLiteOpenHelper constructor with database details
-        super(context, DB_FILE, null, 1); // DB version is set to 1
+
+    private Context context;
+
+    public HelperDB(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
-    // This method is called when the database is first created
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-// Create the Users table when the database is initialized
-        db.execSQL(buildUserTable());
+        // Create users table
+        String createTable = "CREATE TABLE " + USERS_TABLE + " (" +
+                USER_NAME + " TEXT, " +
+                USER_PWD + " TEXT, " +
+                USER_EMAIL + " TEXT PRIMARY KEY, " +
+                USER_PHONE + " TEXT)";
+        db.execSQL(createTable);
     }
-    // This method is called when the database needs to be upgraded (e.g., when changing the version)
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-// Currently, no upgrade logic is needed (so it's left empty)
-// Can be used later for migrating to a new version of the database
+        // Drop older table if it exists
+        db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
+        // Create tables again
+        onCreate(db);
     }
-    // Method to build the SQL query for creating the Users table with the correct order
-    public String buildUserTable() {
-// SQL query string for creating the Users table with columns in the specified order
-        String st = "CREATE TABLE IF NOT EXISTS " + USERS_TABLE;
-        st += "(" + USER_NAME + " TEXT,"; // Column for storing the user's name (TEXT type)
-        st += USER_EMAIL + " TEXT, "; // Column for storing the user's email (TEXT type)
-        st += USER_PWD + " TEXT, "; // Column for storing the user's password (TEXT type)
-        st += USER_PHONE + " TEXT"; // Column for storing the user's phone number (TEXT type)
-        st += ")"; // Close the CREATE TABLE statement
-        return st;
+
+    // Method to insert user details into the database
+    public void insertUser(String userName, String userEmail, String userPassword, String userPhone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(USER_NAME, userName);
+        values.put(USER_EMAIL, userEmail);
+        values.put(USER_PWD, userPassword);
+        values.put(USER_PHONE, userPhone);
+
+        long result = db.insert(USERS_TABLE, null, values);
+        if (result == -1) {
+            Toast.makeText(context, "Failed to register user", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT).show();
+        }
     }
-}// END OF CLASS
+
+    // Method to get the password by email
+    public String getPasswordByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase(); // Get a readable database
+        String password = null;
+
+        // Query to get the password for the specified email
+        Cursor cursor = db.query(USERS_TABLE, new String[]{USER_PWD}, USER_EMAIL + "=?", new String[]{email}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            password = cursor.getString(cursor.getColumnIndex(USER_PWD)); // Retrieve the password
+            cursor.close(); // Close the cursor
+        }
+
+        return password; // Return the password (or null if not found)
+    }
+}

@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class LoginFragment extends Fragment {
-    private UserDetails user = new UserDetails("", ""); // Store user details (email & password)
     private EditText etEmailLogin, etPasswordLogin; // Email and password input fields
     private Button buttonSignUp, buttonLogin, buttonGoBack; // Sign-up, login, and go-back buttons
+    private HelperDB dbHelper; // Database helper instance
 
     public LoginFragment() {
         // Required empty public constructor
@@ -36,6 +36,9 @@ public class LoginFragment extends Fragment {
         etEmailLogin = view.findViewById(R.id.EnterEmail);
         etPasswordLogin = view.findViewById(R.id.EnterPassword);
 
+        // Initialize the database helper
+        dbHelper = new HelperDB(getActivity());
+
         // Initialize the login button
         buttonLogin = view.findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +54,14 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-                user.setEmail(emailLogin);
-                user.setPassword(passwordLogin);
-
-                // Navigate to the Introduction activity
-                Intent intent = new Intent(getActivity(), Introduction.class);
-                startActivity(intent);
+                // Check if user is registered in the database
+                if (isUserRegistered(emailLogin, passwordLogin)) {
+                    // Navigate to the Introduction activity if login is successful
+                    Intent intent = new Intent(getActivity(), Introduction.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "Invalid email or password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -86,6 +91,13 @@ public class LoginFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // Check if the user is registered
+    private boolean isUserRegistered(String email, String password) {
+        // Fetch user details from the database
+        String storedPassword = dbHelper.getPasswordByEmail(email); // Method to fetch password by email
+        return password.equals(storedPassword); // Return true if passwords match
     }
 
     // Create options menu

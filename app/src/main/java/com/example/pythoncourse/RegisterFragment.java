@@ -57,16 +57,18 @@ public class RegisterFragment extends Fragment {
                     return;
                 }
 
-                // Here you would typically save the user details to a database
-                // For demonstration, we just show a Toast
+                // Save user details to the database
+                HelperDB helperDB = new HelperDB(getActivity());
+                helperDB.insertUser(name, email, password, phoneNumber);
+
                 Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
 
-                // Optionally navigate back to LoginFragment after successful registration
+                // Navigate back to LoginFragment
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_register, new LoginFragment()) // Replace with LoginFragment
-                        .addToBackStack(null) // Add this transaction to the back stack
-                        .commit(); // Commit the transaction
+                        .replace(R.id.fragment_register, new LoginFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -78,9 +80,9 @@ public class RegisterFragment extends Fragment {
                 // Navigate to LoginFragment
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_register, new LoginFragment()) // Replace with LoginFragment
-                        .addToBackStack(null) // Add this transaction to the back stack
-                        .commit(); // Commit the transaction
+                        .replace(R.id.fragment_register, new LoginFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
