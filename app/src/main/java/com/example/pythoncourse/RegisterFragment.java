@@ -1,8 +1,6 @@
 package com.example.pythoncourse;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,74 +8,79 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 public class RegisterFragment extends Fragment {
-    private EditText newName, newEmail, newPassword, newRe_EnterPassword, newPhoneNumber;
-    private Button newSignUpButton, newLoginButton;
+    private EditText etName, etEmail, etPassword, etReEnterPassword, etPhoneNumber; // Input fields
+    private Button buttonSignUp, buttonLogin; // Sign-up and login buttons
 
-    // Required empty public constructor
-    public RegisterFragment() { }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public RegisterFragment() {
+        // Required empty public constructor
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        // Initialize EditText fields and buttons
-        newName = view.findViewById(R.id.newName);
-        newEmail = view.findViewById(R.id.newEmail);
-        newPassword = view.findViewById(R.id.newPassword);
-        newRe_EnterPassword = view.findViewById(R.id.newRe_EnterPassword);
-        newPhoneNumber = view.findViewById(R.id.newPhoneNumber);
-        newSignUpButton = view.findViewById(R.id.newSignUpButton);
-        newLoginButton = view.findViewById(R.id.newLoginButton);
+        // Initialize the EditText fields
+        etName = view.findViewById(R.id.newName);
+        etEmail = view.findViewById(R.id.newEmail);
+        etPassword = view.findViewById(R.id.newPassword);
+        etReEnterPassword = view.findViewById(R.id.newRe_EnterPassword);
+        etPhoneNumber = view.findViewById(R.id.newPhoneNumber);
 
-        HelperDB helperDB = new HelperDB(getContext());
-        SQLiteDatabase db;
-
-        // Set click listener for sign up button
-        newSignUpButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize the sign-up button
+        buttonSignUp = view.findViewById(R.id.newSignUpButton);
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Retrieve user input from EditText fields
-                String name = newName.getText().toString();
-                String email = newEmail.getText().toString();
-                String password = newPassword.getText().toString();
-                String reEnteredPassword = newRe_EnterPassword.getText().toString();
-                String phoneNumber = newPhoneNumber.getText().toString();
+                // Extract text from EditText fields
+                String name = etName.getText().toString().trim();
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+                String reEnteredPassword = etReEnterPassword.getText().toString().trim();
+                String phoneNumber = etPhoneNumber.getText().toString().trim();
 
-                // Check if passwords match
-                if (!password.equals(reEnteredPassword)) {
-                    Toast.makeText(getContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                // Input validation
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() ||
+                        reEnteredPassword.isEmpty() || phoneNumber.isEmpty()) {
+                    Toast.makeText(getActivity(), "All fields must be filled", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Create UserDetails object
-                UserDetails user = new UserDetails(name, email, password, phoneNumber);
+                if (!password.equals(reEnteredPassword)) {
+                    Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                // Show a toast upon successfully registering
-                Toast.makeText(getContext(), "Registered successfully", Toast.LENGTH_SHORT).show();
+                // Here you would typically save the user details to a database
+                // For demonstration, we just show a Toast
+                Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
 
-                // Optional: Save user details to the database here
-
-                // Navigate back to LoginFragment
+                // Optionally navigate back to LoginFragment after successful registration
                 getActivity().getSupportFragmentManager()
-                        .popBackStack(); // Pop the back stack to return to the LoginFragment
+                        .beginTransaction()
+                        .replace(R.id.fragment_register, new LoginFragment()) // Replace with LoginFragment
+                        .addToBackStack(null) // Add this transaction to the back stack
+                        .commit(); // Commit the transaction
             }
         });
 
-        // Set click listener for login button, goes back to LoginFragment
-        newLoginButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize the login button
+        buttonLogin = view.findViewById(R.id.newLoginButton);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to LoginFragment
+                // Navigate to LoginFragment
                 getActivity().getSupportFragmentManager()
-                        .popBackStack(); // Pop the back stack to return to the LoginFragment
+                        .beginTransaction()
+                        .replace(R.id.fragment_register, new LoginFragment()) // Replace with LoginFragment
+                        .addToBackStack(null) // Add this transaction to the back stack
+                        .commit(); // Commit the transaction
             }
         });
 

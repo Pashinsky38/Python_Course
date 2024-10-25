@@ -1,5 +1,6 @@
 package com.example.pythoncourse;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,12 +42,21 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Extract text from EditText fields
-                String emailLogin = etEmailLogin.getText().toString();
-                String passwordLogin = etPasswordLogin.getText().toString();
+                String emailLogin = etEmailLogin.getText().toString().trim();
+                String passwordLogin = etPasswordLogin.getText().toString().trim();
+
+                // Input validation
+                if (emailLogin.isEmpty() || passwordLogin.isEmpty()) {
+                    Toast.makeText(getActivity(), "Email and password must not be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 user.setEmail(emailLogin);
                 user.setPassword(passwordLogin);
-                // Display a Toast message for successful login (implement login logic here)
-                Toast.makeText(getActivity(), "Logged in with " + emailLogin, Toast.LENGTH_SHORT).show();
+
+                // Navigate to the Introduction activity
+                Intent intent = new Intent(getActivity(), Introduction.class);
+                startActivity(intent);
             }
         });
 
