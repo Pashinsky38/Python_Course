@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Menu;
@@ -53,24 +52,37 @@ public class HomePage extends AppCompatActivity {
             public void onFinish() {
                 // Automatically navigate to the LoginFragment after 5 seconds
                 navigateToLoginFragment();
-
                 // Display a toast message saying "Welcome!"
                 Toast.makeText(HomePage.this, "Welcome!", Toast.LENGTH_SHORT).show();
             }
         }.start();
     }
 
+    // --------------------------- Navigation Methods ---------------------------
     // Method to navigate to the LoginFragment
     private void navigateToLoginFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment loginFragment = new LoginFragment();
 
-        // Replace the current fragment or container with the LoginFragment
-        fragmentTransaction.replace(R.id.fragment_login, loginFragment); // Updated ID here
+        // Replace the current fragment with the LoginFragment
+        fragmentTransaction.replace(R.id.fragment_login, loginFragment);
         fragmentTransaction.addToBackStack(null); // Optionally add to back stack
         fragmentTransaction.commit();
     }
+
+    // Method to navigate to the RegisterFragment
+    private void navigateToRegisterFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment registerFragment = new RegisterFragment();
+
+        // Replace the current fragment with the RegisterFragment
+        fragmentTransaction.replace(R.id.fragment_register, registerFragment);
+        fragmentTransaction.addToBackStack(null); // Optionally add to back stack
+        fragmentTransaction.commit();
+    }
+    // --------------------------- End of Navigation Methods -------------------
 
     // Create options menu
     @Override
@@ -82,26 +94,21 @@ public class HomePage extends AppCompatActivity {
     // Handle options menu item selection
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Variable for receiving an input
         int id = item.getItemId();
 
         if (id == R.id.menuHome) {
-            // If clicked on Home Page, stays on HomePage
+            // Stay on HomePage
             return true;
-
         } else if (id == R.id.menuLogin) {
-            // If clicked on Login, navigate to the LoginFragment
+            // Navigate to the LoginFragment
             navigateToLoginFragment();
             return true;
-
         } else if (id == R.id.menuSignUp) {
-            // If clicked on Sign Up, goes from HomePage to Register activity
-            Intent intent = new Intent(HomePage.this, Register.class);
-            startActivity(intent);
+            // Navigate to the RegisterFragment
+            navigateToRegisterFragment();
             return true;
-
         } else if (id == R.id.menuCloseApp) {
-            // If clicked on Close App, the app closes
+            // Close the app
             finishAffinity();
             return true;
         }

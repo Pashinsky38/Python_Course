@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasicsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Topic heading -->
+        <TextView
+            android:id="@+id/Starting_with_basics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="Starting with the basics"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Explanation of how printing works in Python -->
+        <TextView
+            android:id="@+id/explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="In Python, you can display output using the 'print()' function. For example, to print 'Hello, World!', you would use the following code:"
+            android:textSize="16sp" />
+
+        <!-- Code example for Hello World -->
+        <TextView
+            android:id="@+id/code_example"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp"
+            android:text="print('Hello, World!')"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <!-- Explanation of newline and concatenation -->
+        <TextView
+            android:id="@+id/newline_and_concatenation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="To print text on a new line, you can use '\\n' inside the string. If you want to combine two strings, you can use the '+' operator like this:"
+            android:textSize="16sp" />
+
+        <!-- Code example for newline and concatenation -->
+        <TextView
+            android:id="@+id/code_example2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp"
+            android:text="print('Hello' + ', World!\\nWelcome to Python!')"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <!-- Button at the bottom to navigate to the next section -->
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Next" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -26,11 +26,11 @@ public class HelperDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create users table
+        // Create users table with the new column order
         String createTable = "CREATE TABLE " + USERS_TABLE + " (" +
                 USER_NAME + " TEXT, " +
-                USER_PWD + " TEXT, " +
                 USER_EMAIL + " TEXT PRIMARY KEY, " +
+                USER_PWD + " TEXT, " +
                 USER_PHONE + " TEXT)";
         db.execSQL(createTable);
     }
@@ -39,9 +39,10 @@ public class HelperDB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if it exists
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE);
-        // Create tables again
+        // Create tables again with the new column order
         onCreate(db);
     }
+
 
     // Method to insert user details into the database
     public void insertUser(String userName, String userEmail, String userPassword, String userPhone) {

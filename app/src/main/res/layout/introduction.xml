@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Introduction">
+
+    <!-- Title of the introduction -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Introduction to Python"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp" />
+
+    <!-- Description of Python -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="356dp"
+        android:layout_height="388dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:text="Python is a high-level, general-purpose programming language known for its simplicity and readability. It is widely used in various fields like web development, data analysis, artificial intelligence, scientific computing, and automation. Python's design emphasizes code readability, using indentation to define blocks of code, which makes it easier to learn and write. Key features of Python: Easy to learn and use: Its syntax is clear and concise, making it beginner-friendly. Interpreted language: Python executes code line by line, which makes it easier to debug. Extensive libraries: It has a vast collection of libraries (like NumPy, Pandas, TensorFlow) that help with tasks ranging from math operations to machine learning. Cross-platform: It runs on various platforms like Windows, macOS, and Linux. Dynamic typing: You don't need to specify data types when declaring variables, and they can change type dynamically. It's commonly used by developers, scientists, and analysts for tasks ranging from simple scripting to large-scale applications." />
+
+    <!-- Next button to BasicsFragment-->
+    <Button
+        android:id="@+id/introductionToBasics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="600dp" />
+
+    <!-- FrameLayout for BasicsFragment -->
+    <FrameLayout
+        android:id="@+id/fragment_basics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+</FrameLayout>

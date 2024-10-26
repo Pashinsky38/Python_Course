@@ -3,8 +3,6 @@ package com.example.pythoncourse;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,13 +68,7 @@ public class LoginFragment extends Fragment {
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Register fragment
-                RegisterFragment registerFragment = new RegisterFragment(); // Create a new instance of RegisterFragment
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_register, registerFragment) // Replace fragment_register with the RegisterFragment
-                        .addToBackStack(null) // Add this transaction to the back stack
-                        .commit(); // Commit the transaction
+                navigateToRegisterFragment(); // Navigate to RegisterFragment
             }
         });
 
@@ -85,8 +77,7 @@ public class LoginFragment extends Fragment {
         buttonGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to HomePage using fragment back stack
-                getActivity().getSupportFragmentManager().popBackStack();
+                navigateBackToHomePage(); // Navigate back to HomePage
             }
         });
 
@@ -95,16 +86,8 @@ public class LoginFragment extends Fragment {
 
     // Check if the user is registered
     private boolean isUserRegistered(String email, String password) {
-        // Fetch user details from the database
-        String storedPassword = dbHelper.getPasswordByEmail(email); // Method to fetch password by email
-        return password.equals(storedPassword); // Return true if passwords match
-    }
-
-    // Create options menu
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        String storedPassword = dbHelper.getPasswordByEmail(email);
+        return password.equals(storedPassword);
     }
 
     // Handle options menu item selection
@@ -112,7 +95,13 @@ public class LoginFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuHome) {
-            getActivity().getSupportFragmentManager().popBackStack(); // Navigate back to HomePage
+            navigateBackToHomePage(); // Navigate back to HomePage
+            return true;
+        } else if (id == R.id.menuLogin){
+            // Stay on LoginFragment
+            return true;
+        } else if (id == R.id.menuSignUp) {
+            navigateToRegisterFragment(); // Navigate to RegisterFragment
             return true;
         } else if (id == R.id.menuCloseApp) {
             getActivity().finishAffinity(); // Close the app
@@ -120,4 +109,21 @@ public class LoginFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // --------------------------- Navigation Methods ---------------------------
+    // Navigate to RegisterFragment
+    private void navigateToRegisterFragment() {
+        RegisterFragment registerFragment = new RegisterFragment();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_register, registerFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    // Navigate back to HomePage
+    private void navigateBackToHomePage() {
+        getActivity().getSupportFragmentManager().popBackStack(null, 0); // Navigate back to HomePage
+    }
+    // --------------------------- End of Navigation Methods -------------------
 }

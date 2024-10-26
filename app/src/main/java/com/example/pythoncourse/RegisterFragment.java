@@ -63,12 +63,8 @@ public class RegisterFragment extends Fragment {
 
                 Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
 
-                // Navigate back to LoginFragment
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_register, new LoginFragment())
-                        .addToBackStack(null)
-                        .commit();
+                // Navigate to LoginFragment
+                navigateToLoginFragment();
             }
         });
 
@@ -78,14 +74,20 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Navigate to LoginFragment
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_register, new LoginFragment())
-                        .addToBackStack(null)
-                        .commit();
+                navigateToLoginFragment();
             }
         });
 
         return view;
     }
+    // --------------------------- Navigation Methods ---------------------------
+    // Navigate to LoginFragment
+    private void navigateToLoginFragment() {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_register, new LoginFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+    // --------------------------- End of Navigation Methods -------------------
 }
