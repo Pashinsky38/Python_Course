@@ -1,5 +1,6 @@
 package com.example.pythoncourse;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,21 +10,24 @@ import android.widget.Toast;
 
 public class HelperDB extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "user_management.db";
-    private static final int DATABASE_VERSION = 1;
-    public static final String USERS_TABLE = "Users";
-    public static final String USER_NAME = "UserName";
-    public static final String USER_PWD = "UserPassword";
-    public static final String USER_EMAIL = "UserEmail";
-    public static final String USER_PHONE = "UserPhone";
+    // Database constants
+    private static final String DATABASE_NAME = "user_management.db";// Database name
+    private static final int DATABASE_VERSION = 1;// Database version
+    public static final String USERS_TABLE = "Users";// Table name
+    public static final String USER_NAME = "UserName";// Column names
+    public static final String USER_PWD = "UserPassword";// Column names
+    public static final String USER_EMAIL = "UserEmail";// Column names
+    public static final String USER_PHONE = "UserPhone";// Column names
 
     private Context context;
 
+    // Constructor
     public HelperDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
+    // Method to create the database
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create users table with the new column order
@@ -35,6 +39,7 @@ public class HelperDB extends SQLiteOpenHelper {
         db.execSQL(createTable);
     }
 
+    // Method to upgrade the database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if it exists
@@ -53,15 +58,17 @@ public class HelperDB extends SQLiteOpenHelper {
         values.put(USER_PWD, userPassword);
         values.put(USER_PHONE, userPhone);
 
+        // Insert the values into the database
         long result = db.insert(USERS_TABLE, null, values);
-        if (result == -1) {
+        if (result == -1) {// If insertion fails
             Toast.makeText(context, "Failed to register user", Toast.LENGTH_SHORT).show();
-        } else {
+        } else {// If insertion is successful
             Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
     // Method to get the password by email
+    @SuppressLint("Range")
     public String getPasswordByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase(); // Get a readable database
         String password = null;

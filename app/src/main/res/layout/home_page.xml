@@ -49,6 +49,7 @@
         android:text="Press on button to continue"
         android:textSize="20dp" />
 
+
     <!-- Login fragment container -->
     <FrameLayout
         android:id="@+id/fragment_login"
