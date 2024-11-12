@@ -95,7 +95,7 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             return true;
 
-        } else if (id == R.id.menuSignUp) {
+        } else if (id == R.id.menuRegister) {
             // If clicked on Sign Up, goes to Register page
             Intent intent = new Intent(Login.this, Register.class);
             startActivity(intent);

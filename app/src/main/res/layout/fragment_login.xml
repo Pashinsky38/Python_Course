@@ -55,7 +55,7 @@
 
         <!-- Button for going back to HomePage -->
         <Button
-            android:id="@+id/goBack"
+            android:id="@+id/gotoHomePageButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

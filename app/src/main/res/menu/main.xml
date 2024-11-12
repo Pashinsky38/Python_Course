@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:title="Login" />
     <item
-        android:id="@+id/menuSignUp"
+        android:id="@+id/menuRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Sign Up" />
+        android:title="Register" />
     <item
         android:id="@+id/menuCloseApp"
         android:layout_width="wrap_content"

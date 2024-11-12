@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
                 String name = newName.getText().toString();
                 String email = newEmail.getText().toString();
                 String password = newPassword.getText().toString();
-                String reEnteredPassword = newRe_EnterPassword.getText().toString(); // You need to add an if statement that checks if password == reEnteredPassword
+                String reEnteredPassword = newRe_EnterPassword.getText().toString();
                 String phoneNumber = newPhoneNumber.getText().toString();
 
                 // Check if the passwords match
@@ -99,7 +99,7 @@ public class Register extends AppCompatActivity {
             startActivity(intent);
             return true;
 
-        } else if (id == R.id.menuSignUp) {
+        } else if (id == R.id.menuRegister) {
             // If clicked on Sign Up, stays on Register page
             Intent intent = new Intent(Register.this, Register.class);
             startActivity(intent);
