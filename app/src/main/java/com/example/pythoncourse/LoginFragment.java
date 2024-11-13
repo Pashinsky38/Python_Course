@@ -32,7 +32,6 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        setHasOptionsMenu(true); // Allow fragment to have its own options menu
 
         // --------------------------- Initialization ---------------------------
         etEmailLogin = view.findViewById(R.id.EnterEmail);
@@ -45,46 +44,30 @@ public class LoginFragment extends Fragment {
         // Initialize the database helper
         dbHelper = new HelperDB(getActivity());
 
-        // Initialize the login button
+        // Set click listener for the login button
+        buttonLogin.setOnClickListener(v -> {
+            // Extract text from EditText fields
+            String emailLogin = etEmailLogin.getText().toString().trim();
+            String passwordLogin = etPasswordLogin.getText().toString().trim();
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Extract text from EditText fields
-                String emailLogin = etEmailLogin.getText().toString().trim();
-                String passwordLogin = etPasswordLogin.getText().toString().trim();
+            // Input validation
+            if (emailLogin.isEmpty() || passwordLogin.isEmpty()) {
+                Toast.makeText(getActivity(), "Email and password must not be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                // Input validation
-                if (emailLogin.isEmpty() || passwordLogin.isEmpty()) {
-                    Toast.makeText(getActivity(), "Email and password must not be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Check if user is registered in the database
-                if (isUserRegistered(emailLogin, passwordLogin)) {
-                    // Navigate to the Introduction activity if login is successful
-                    Intent intent = new Intent(getActivity(), Introduction.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), "Invalid email or password", Toast.LENGTH_SHORT).show();
-                }
+            // Check if user is registered in the database
+            if (isUserRegistered(emailLogin, passwordLogin)) {
+                // Navigate to the Introduction activity if login is successful
+                Intent intent = new Intent(getActivity(), Introduction.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
         });
 
-        gotoRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToRegisterFragment(); // Navigate to RegisterFragment
-            }
-        });
-
-        gotoHomePageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToHomePage(); // Navigate back to HomePage
-            }
-        });
-
+        gotoRegisterButton.setOnClickListener(v -> navigateToRegisterFragment());// Set click listener for the register button
+        gotoHomePageButton.setOnClickListener(v -> navigateToHomePage());// Set click listener for the home page button
         return view;
     }
 
@@ -111,7 +94,7 @@ public class LoginFragment extends Fragment {
     }
     // --------------------------- End of Navigation Methods -------------------
 
-    // --------------------------- Options Menu Methods -----------------------
+    // --------------------------- Menu Methods ---------------------------
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();// Clear the menu
@@ -140,5 +123,5 @@ public class LoginFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-    // --------------------------- End of Options Menu Methods -----------------
+    // --------------------------- End of Menu Methods -------------------
 }// -------------------------------- End of LoginFragment --------------------------------

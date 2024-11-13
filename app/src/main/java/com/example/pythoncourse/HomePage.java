@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,15 +18,11 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);// Set the layout for the activity
 
-        gotoLoginButton = findViewById(R.id.gotoLoginButton);// Find the button by its ID
+        // --------------------------- Initialization ---------------------------
+        gotoLoginButton = findViewById(R.id.gotoLoginButton);
+        // --------------------------- End of Initialization -------------------
 
-        // Set a click listener for the start button
-        gotoLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {// Handle the click event
-                navigateToLoginFragment();// Navigate to the LoginFragment
-            }
-        });
+        gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());// Set a click listener for the button
     }
 
     // --------------------------- Navigation Methods ---------------------------
@@ -53,6 +48,7 @@ public class HomePage extends AppCompatActivity {
     // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();// Clear the menu
         getMenuInflater().inflate(R.menu.main, menu);// Inflate the menu layout from the menu.xml file
         return true;
     }

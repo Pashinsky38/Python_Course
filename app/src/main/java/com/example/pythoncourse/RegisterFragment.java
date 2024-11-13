@@ -33,54 +33,46 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);// Inflate the layout
 
         // --------------------------- Initialization ---------------------------
-        etName = view.findViewById(R.id.newName);// Find the EditText field by its ID
-        etEmail = view.findViewById(R.id.newEmail);// Find the EditText field by its ID
-        etPassword = view.findViewById(R.id.newPassword);// Find the EditText field by its ID
-        etReEnterPassword = view.findViewById(R.id.newRe_EnterPassword);// Find the EditText field by its ID
-        etPhoneNumber = view.findViewById(R.id.newPhoneNumber);// Find the EditText field by its ID
-        buttonSignUp = view.findViewById(R.id.newSignUpButton);// Find the button by its ID
-        buttonLogin = view.findViewById(R.id.newLoginButton);// Find the button by its ID
+        etName = view.findViewById(R.id.newName);
+        etEmail = view.findViewById(R.id.newEmail);
+        etPassword = view.findViewById(R.id.newPassword);
+        etReEnterPassword = view.findViewById(R.id.newRe_EnterPassword);
+        etPhoneNumber = view.findViewById(R.id.newPhoneNumber);
+        buttonSignUp = view.findViewById(R.id.newSignUpButton);
+        buttonLogin = view.findViewById(R.id.newLoginButton);
         // --------------------------- End of Initialization ---------------------------
 
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {// Set a click listener for the button
-            @Override
-            public void onClick(View v) {// Handle the button click
-                // Get the input values from the EditText fields
-                String name = etName.getText().toString().trim();// Trim leading and trailing spaces
-                String email = etEmail.getText().toString().trim();// Trim leading and trailing spaces
-                String password = etPassword.getText().toString().trim();// Trim leading and trailing spaces
-                String reEnteredPassword = etReEnterPassword.getText().toString().trim();// Trim leading and trailing spaces
-                String phoneNumber = etPhoneNumber.getText().toString().trim();// Trim leading and trailing spaces
+        // Set a click listener for the sign up button
+        buttonSignUp.setOnClickListener(v -> {
+            // Get the input values from the EditText fields
+            String name = etName.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            String reEnteredPassword = etReEnterPassword.getText().toString().trim();
+            String phoneNumber = etPhoneNumber.getText().toString().trim();
 
-                // Check if any of the fields are empty
-                if (name.isEmpty() || email.isEmpty() || password.isEmpty() ||
-                        reEnteredPassword.isEmpty() || phoneNumber.isEmpty()) {// Check if any of the fields are empty
-                    Toast.makeText(getActivity(), "All fields must be filled", Toast.LENGTH_SHORT).show();// Show a toast message
-                    return;
-                }
-
-                // Check if the password and re-entered password match
-                if (!password.equals(reEnteredPassword)) {
-                    Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();// Show a toast message
-                    return;
-                }
-
-                // Insert the user data into the database
-                HelperDB helperDB = new HelperDB(getActivity());// Create an instance of HelperDB
-                helperDB.insertUser(name, email, password, phoneNumber);// Insert the user data into the database
-                Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();// Show a toast message
-                navigateToLoginFragment();//
+            // Check if any of the fields are empty
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() ||
+                    reEnteredPassword.isEmpty() || phoneNumber.isEmpty()) {
+                Toast.makeText(getActivity(), "All fields must be filled", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            // Check if the password and re-entered password match
+            if (!password.equals(reEnteredPassword)) {
+                Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Insert the user data into the database
+            HelperDB helperDB = new HelperDB(getActivity());
+            helperDB.insertUser(name, email, password, phoneNumber);
+            Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
+            navigateToLoginFragment();
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {// Set a click listener for the button
-            @Override
-            public void onClick(View v) {// Handle the button click
-                navigateToLoginFragment();// Navigate to LoginFragment
-            }
-        });
-
-        return view;
+        buttonLogin.setOnClickListener(v -> navigateToLoginFragment());// Set a click listener for the login button
+        return view;// Return the inflated view
     }
     // --------------------------- Navigation Methods ---------------------------
     // Navigate to LoginFragment
@@ -114,7 +106,7 @@ public class RegisterFragment extends Fragment {
         } else if (id == R.id.menuLogin) {// Check if the item is the login menu item
             navigateToLoginFragment();// Navigate to the login fragment
             return true;
-        } else if (id == R.id.menuRegister)   {// Check if the item is the sign up menu item
+        } else if (id == R.id.menuRegister) {// Check if the item is the sign up menu item
             // Stays in the same fragment
             Toast.makeText(getActivity(), "Already in Register!", Toast.LENGTH_SHORT).show();// Show a toast message
             return true;
