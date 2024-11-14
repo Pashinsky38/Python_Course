@@ -22,7 +22,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true // Enable minification for release builds
+            isShrinkResources = true // Enable resource shrinking for release builds
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -38,9 +39,10 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true // Enable View Binding
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.1" // Or libs.versions.composeCompiler.get() if using version catalog
     }
     packaging {
         resources {

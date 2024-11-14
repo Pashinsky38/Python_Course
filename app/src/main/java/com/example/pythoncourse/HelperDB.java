@@ -19,7 +19,7 @@ public class HelperDB extends SQLiteOpenHelper {
     public static final String USER_EMAIL = "UserEmail";// Column names
     public static final String USER_PHONE = "UserPhone";// Column names
 
-    private Context context;
+    private final Context context;
 
     // Constructor
     public HelperDB(Context context) {

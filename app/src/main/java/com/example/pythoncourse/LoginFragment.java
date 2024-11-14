@@ -8,20 +8,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.pythoncourse.databinding.FragmentLoginBinding;
+
 public class LoginFragment extends Fragment {
-    // --------------------------- Variables ---------------------------
-    private EditText etEmailLogin, etPasswordLogin;// Email and password EditText fields
-    private Button gotoRegisterButton, buttonLogin, gotoHomePageButton;// Buttons for navigation
-    private HelperDB dbHelper;// Database helper
-    // --------------------------- End of Variables -------------------
+
+    private FragmentLoginBinding binding;// View binding for the fragment
+    private HelperDB dbHelper;// Database helper for handling database operations
 
     public LoginFragment() {
         // Required empty public constructor
@@ -30,35 +28,21 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        // --------------------------- Initialization ---------------------------
-        etEmailLogin = view.findViewById(R.id.EnterEmail);
-        etPasswordLogin = view.findViewById(R.id.EnterPassword);
-        buttonLogin = view.findViewById(R.id.buttonLogin);
-        gotoRegisterButton = view.findViewById(R.id.buttonSignUp);
-        gotoHomePageButton = view.findViewById(R.id.gotoHomePageButton);
-        // --------------------------- End of Initialization -------------------
-
-        // Initialize the database helper
         dbHelper = new HelperDB(getActivity());
 
-        // Set click listener for the login button
-        buttonLogin.setOnClickListener(v -> {
-            // Extract text from EditText fields
-            String emailLogin = etEmailLogin.getText().toString().trim();
-            String passwordLogin = etPasswordLogin.getText().toString().trim();
+        binding.buttonLogin.setOnClickListener(v -> {
+            String emailLogin = binding.EnterEmail.getText().toString().trim();
+            String passwordLogin = binding.EnterPassword.getText().toString().trim();
 
-            // Input validation
             if (emailLogin.isEmpty() || passwordLogin.isEmpty()) {
                 Toast.makeText(getActivity(), "Email and password must not be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Check if user is registered in the database
             if (isUserRegistered(emailLogin, passwordLogin)) {
-                // Navigate to the Introduction activity if login is successful
                 Intent intent = new Intent(getActivity(), Introduction.class);
                 startActivity(intent);
             } else {
@@ -66,19 +50,18 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        gotoRegisterButton.setOnClickListener(v -> navigateToRegisterFragment());// Set click listener for the register button
-        gotoHomePageButton.setOnClickListener(v -> navigateToHomePage());// Set click listener for the home page button
+        binding.buttonSignUp.setOnClickListener(v -> navigateToRegisterFragment());
+        binding.gotoHomePageButton.setOnClickListener(v -> navigateToHomePage());
+
         return view;
     }
 
-    // Check if the user is registered
     private boolean isUserRegistered(String email, String password) {
         String storedPassword = dbHelper.getPasswordByEmail(email);
         return password.equals(storedPassword);
     }
 
     // --------------------------- Navigation Methods ---------------------------
-    // Navigate to RegisterFragment
     private void navigateToRegisterFragment() {
         RegisterFragment registerFragment = new RegisterFragment();
         getActivity().getSupportFragmentManager()
@@ -88,40 +71,37 @@ public class LoginFragment extends Fragment {
                 .commit();
     }
 
-    // Navigate back to HomePage
     private void navigateToHomePage() {
-        startActivity(new Intent(getActivity(), HomePage.class));// Start the HomePage activity
+        startActivity(new Intent(getActivity(), HomePage.class));
     }
     // --------------------------- End of Navigation Methods -------------------
 
     // --------------------------- Menu Methods ---------------------------
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();// Clear the menu
-        inflater.inflate(R.menu.main, menu); // Inflate a different menu if desired
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId(); // Get the selected item's ID
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
         if (id == R.id.menuHome) {
-            navigateToHomePage(); // Navigate back to HomePage
+            navigateToHomePage();
             return true;
         } else if (id == R.id.menuLogin) {
-            // Stay on LoginFragment
             Toast.makeText(getActivity(), "Already in Login!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.menuRegister) {
-            navigateToRegisterFragment(); // Navigate to RegisterFragment
+            navigateToRegisterFragment();
             return true;
         } else if (id == R.id.menuCloseApp) {
-            getActivity().finishAffinity(); // Close the app
+            getActivity().finishAffinity();// Close the app
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
     // --------------------------- End of Menu Methods -------------------
-}// -------------------------------- End of LoginFragment --------------------------------
+}// ---------------------------------- End of LoginFragment ----------------------------------

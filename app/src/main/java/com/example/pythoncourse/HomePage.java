@@ -1,46 +1,42 @@
 package com.example.pythoncourse;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pythoncourse.databinding.HomePageBinding;
+
 public class HomePage extends AppCompatActivity {
-    // --------------------------- Variables ---------------------------
-    Button gotoLoginButton;// Button to navigate to the LoginFragment
-    // --------------------------- End of Variables -------------------
+
+    private HomePageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_page);// Set the layout for the activity
+        binding = HomePageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // --------------------------- Initialization ---------------------------
-        gotoLoginButton = findViewById(R.id.gotoLoginButton);
-        // --------------------------- End of Initialization -------------------
-
-        gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());// Set a click listener for the button
+        binding.gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());
     }
 
     // --------------------------- Navigation Methods ---------------------------
     // Method to navigate to the LoginFragment
     private void navigateToLoginFragment() {
-        getSupportFragmentManager().beginTransaction()// Start a new FragmentTransaction
-                .replace(R.id.fragment_login, new LoginFragment())// Replace the current fragment with the LoginFragment
-                .addToBackStack(null)// Add the transaction to the back stack
-                .commit();// Commit the transaction
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_login, new LoginFragment())
+                .addToBackStack(null)
+                .commit();
     }
-
 
     // Method to navigate to the RegisterFragment
     private void navigateToRegisterFragment() {
-        getSupportFragmentManager().beginTransaction()// Start a new FragmentTransaction
-                .replace(R.id.fragment_register, new RegisterFragment())// Replace the current fragment with the RegisterFragment
-                .addToBackStack(null)// Add the transaction to the back stack
-                .commit();// Commit the transaction
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_register, new RegisterFragment())
+                .addToBackStack(null)
+                .commit();
     }
     // --------------------------- End of Navigation Methods -------------------
 
@@ -48,31 +44,31 @@ public class HomePage extends AppCompatActivity {
     // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();// Clear the menu
-        getMenuInflater().inflate(R.menu.main, menu);// Inflate the menu layout from the menu.xml file
+        menu.clear();
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     // Handle options menu item selection
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();// Get the ID of the selected item
+        int id = item.getItemId();
 
-        if (id == R.id.menuHome) {// Check if the selected item is the Home menu item
+        if (id == R.id.menuHome) {
             // Stay on HomePage
             Toast.makeText(this, "You are already on HomePage", Toast.LENGTH_SHORT).show();
             return true;
-        } else if (id == R.id.menuLogin) {// Check if the selected item is the Login menu item
-            navigateToLoginFragment();// Navigate to the LoginFragment
+        } else if (id == R.id.menuLogin) {
+            navigateToLoginFragment();
             return true;
-        } else if (id == R.id.menuRegister) {// Check if the selected item is the Register menu item
-            navigateToRegisterFragment();// Navigate to the RegisterFragment
+        } else if (id == R.id.menuRegister) {
+            navigateToRegisterFragment();
             return true;
-        } else if (id == R.id.menuCloseApp) {// Check if the selected item is the Close App menu item
-            finishAffinity();// Close the application
+        } else if (id == R.id.menuCloseApp) {
+            finishAffinity();
             return true;
         }
-        return super.onOptionsItemSelected(item);// Handle other menu item selections
+        return super.onOptionsItemSelected(item);
     }
     // --------------------------- End of Menu Methods -------------------
-}// -------------------------------------------------------------------------- End of HomePage Class --------------------------------------------------------------------------
+}// ---------------------------------- End of HomePage ----------------------------------
