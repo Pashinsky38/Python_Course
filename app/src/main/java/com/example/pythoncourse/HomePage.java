@@ -8,11 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.pythoncourse.databinding.HomePageBinding;
-
 import java.util.Calendar;
 
 public class HomePage extends AppCompatActivity {
@@ -30,7 +27,6 @@ public class HomePage extends AppCompatActivity {
         scheduleAlarm(); // Schedule the alarm when the activity is created
     }
 
-    // --------------------------- Navigation Methods ---------------------------
     // Method to navigate to the LoginFragment
     private void navigateToLoginFragment() {
         getSupportFragmentManager().beginTransaction()
@@ -46,9 +42,7 @@ public class HomePage extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
-    // --------------------------- End of Navigation Methods -------------------
 
-    // --------------------------- Menu Methods ---------------------------
     // Inflate the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,8 +72,8 @@ public class HomePage extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    // --------------------------- End of Menu Methods -------------------
 
+    // Schedule a repeating alarm to trigger a notification at a specific time
     private void scheduleAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotificationReceiver.class);
@@ -87,15 +81,16 @@ public class HomePage extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 12); // Set the hour to 12 (noon)
+        calendar.set(Calendar.MINUTE, 0); // Set the minute to 0
+        calendar.set(Calendar.SECOND, 0); // Set the second to 0
 
-        // Check if the time has already passed for today
+        // If the scheduled time has already passed for today, schedule it for tomorrow
         if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1); // Add one day
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
+        // Set the repeating alarm
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }

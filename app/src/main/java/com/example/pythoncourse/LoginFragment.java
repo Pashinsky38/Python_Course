@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,8 +17,8 @@ import com.example.pythoncourse.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
 
-    private FragmentLoginBinding binding;// View binding for the fragment
-    private HelperDB dbHelper;// Database helper for handling database operations
+    private FragmentLoginBinding binding; // View binding for the fragment
+    private HelperDB dbHelper; // Database helper for user authentication
 
     public LoginFragment() {
         // Required empty public constructor
@@ -33,16 +32,20 @@ public class LoginFragment extends Fragment {
 
         dbHelper = new HelperDB(getActivity());
 
+        // Set click listener for the login button
         binding.buttonLogin.setOnClickListener(v -> {
             String emailLogin = binding.EnterEmail.getText().toString().trim();
             String passwordLogin = binding.EnterPassword.getText().toString().trim();
 
+            // Check if email and password are empty
             if (emailLogin.isEmpty() || passwordLogin.isEmpty()) {
                 Toast.makeText(getActivity(), "Email and password must not be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            // Authenticate user
             if (isUserRegistered(emailLogin, passwordLogin)) {
+                // Navigate to Introduction activity if login is successful
                 Intent intent = new Intent(getActivity(), Introduction.class);
                 startActivity(intent);
             } else {
@@ -50,18 +53,21 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        // Set click listener for the sign up button
         binding.buttonSignUp.setOnClickListener(v -> navigateToRegisterFragment());
+        // Set click listener for the skip button
         binding.gotoHomePageButton.setOnClickListener(v -> navigateToHomePage());
 
         return view;
     }
 
+    // Check if the user is registered in the database
     private boolean isUserRegistered(String email, String password) {
         String storedPassword = dbHelper.getPasswordByEmail(email);
         return password.equals(storedPassword);
     }
 
-    // --------------------------- Navigation Methods ---------------------------
+    // Navigate to the RegisterFragment
     private void navigateToRegisterFragment() {
         RegisterFragment registerFragment = new RegisterFragment();
         getActivity().getSupportFragmentManager()
@@ -71,12 +77,12 @@ public class LoginFragment extends Fragment {
                 .commit();
     }
 
+    // Navigate to the HomePage activity
     private void navigateToHomePage() {
         startActivity(new Intent(getActivity(), HomePage.class));
     }
-    // --------------------------- End of Navigation Methods -------------------
 
-    // --------------------------- Menu Methods ---------------------------
+    // Inflate the options menu
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
@@ -84,6 +90,7 @@ public class LoginFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    // Handle options menu item selection
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -98,10 +105,9 @@ public class LoginFragment extends Fragment {
             navigateToRegisterFragment();
             return true;
         } else if (id == R.id.menuCloseApp) {
-            getActivity().finishAffinity();// Close the app
+            getActivity().finishAffinity(); // Close the app
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    // --------------------------- End of Menu Methods -------------------
-}// ---------------------------------- End of LoginFragment ----------------------------------
+}

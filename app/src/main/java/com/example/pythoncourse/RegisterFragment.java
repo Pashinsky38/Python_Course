@@ -9,11 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.pythoncourse.databinding.FragmentRegisterBinding;
 
 public class RegisterFragment extends Fragment {
@@ -30,6 +28,7 @@ public class RegisterFragment extends Fragment {
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        // Set click listener for the sign-up button
         binding.newSignUpButton.setOnClickListener(v -> {
             String name = binding.newName.getText().toString().trim();
             String email = binding.newEmail.getText().toString().trim();
@@ -37,20 +36,25 @@ public class RegisterFragment extends Fragment {
             String reEnteredPassword = binding.newReEnterPassword.getText().toString().trim();
             String phoneNumber = binding.newPhoneNumber.getText().toString().trim();
 
+            // Validate input fields
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() ||
                     reEnteredPassword.isEmpty() || phoneNumber.isEmpty()) {
                 Toast.makeText(getActivity(), "All fields must be filled", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            // Check if passwords match
             if (!password.equals(reEnteredPassword)) {
                 Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            // Insert user data into the database
             HelperDB helperDB = new HelperDB(getActivity());
             helperDB.insertUser(name, email, password, phoneNumber);
             Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
+
+            // Navigate to LoginFragment after successful registration
             navigateToLoginFragment();
         });
 
@@ -59,7 +63,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    // --------------------------- Navigation Methods ---------------------------
+    // Navigate to the LoginFragment
     private void navigateToLoginFragment() {
         LoginFragment loginFragment = new LoginFragment();
         getActivity().getSupportFragmentManager()
@@ -68,12 +72,12 @@ public class RegisterFragment extends Fragment {
                 .commit();
     }
 
+    // Navigate to the HomePage activity
     private void navigateToHomePage() {
         startActivity(new Intent(getActivity(), HomePage.class));
     }
-    // --------------------------- End of Navigation Methods -------------------
 
-    // ---------------------------- Menu Methods ---------------------------
+    // Inflate the options menu
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
@@ -81,6 +85,7 @@ public class RegisterFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    // Handle options menu item selection
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -94,11 +99,10 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(getActivity(), "Already in Register!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.menuCloseApp) {
-            getActivity().finish();// Close the app
+            getActivity().finish(); // Close the app
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    // ---------------------------- End of Menu Methods -------------------
 }
