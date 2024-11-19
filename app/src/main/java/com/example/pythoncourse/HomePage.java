@@ -1,5 +1,9 @@
 package com.example.pythoncourse;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pythoncourse.databinding.HomePageBinding;
+
+import java.util.Calendar;
 
 public class HomePage extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class HomePage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());
+
+        scheduleAlarm(); // Schedule the alarm when the activity is created
     }
 
     // --------------------------- Navigation Methods ---------------------------
@@ -71,4 +79,23 @@ public class HomePage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     // --------------------------- End of Menu Methods -------------------
-}// ---------------------------------- End of HomePage ----------------------------------
+
+    private void scheduleAlarm() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        // Check if the time has already passed for today
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1); // Add one day
+        }
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+}
