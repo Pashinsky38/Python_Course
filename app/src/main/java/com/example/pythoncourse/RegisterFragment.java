@@ -3,9 +3,6 @@ package com.example.pythoncourse;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -75,34 +72,5 @@ public class RegisterFragment extends Fragment {
     // Navigate to the HomePage activity
     private void navigateToHomePage() {
         startActivity(new Intent(getActivity(), HomePage.class));
-    }
-
-    // Inflate the options menu
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    // Handle options menu item selection
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menuHome) {
-            navigateToHomePage();
-            return true;
-        } else if (id == R.id.menuLogin) {
-            navigateToLoginFragment();
-            return true;
-        } else if (id == R.id.menuRegister) {
-            Toast.makeText(getActivity(), "Already in Register!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.menuCloseApp) {
-            getActivity().finish(); // Close the app
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
