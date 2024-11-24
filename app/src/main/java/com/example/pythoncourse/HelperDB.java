@@ -15,8 +15,8 @@ public class HelperDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     public static final String USERS_TABLE = "Users";
     public static final String USER_NAME = "UserName";
-    public static final String USER_PWD = "UserPassword";
     public static final String USER_EMAIL = "UserEmail";
+    public static final String USER_PWD = "UserPassword";
     public static final String USER_PHONE = "UserPhone";
 
     private final Context context;
