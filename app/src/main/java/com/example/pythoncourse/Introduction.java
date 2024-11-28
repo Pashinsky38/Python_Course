@@ -28,7 +28,7 @@ public class Introduction extends AppCompatActivity {
 
         // Set click listener for ttsButton to speak the introduction text
         binding.ttsButton.setOnClickListener(view -> {
-            String textToSpeak = "Python is a high-level, general-purpose programming language known for its simplicity and readability. It is widely used in various fields like web development, data analysis, artificial intelligence, scientific computing, and automation. Python's design emphasizes code readability, using indentation to define blocks of code, which makes it easier to learn and write. Key features of Python: Easy to learn and use: Its syntax is clear and concise, making it beginner-friendly. Interpreted language: Python executes code line by line, which makes it easier to debug. Extensive libraries: It has a vast collection of libraries (like NumPy, Pandas, TensorFlow) that help with tasks ranging from math operations to machine learning. Cross-platform: It runs on various platforms like Windows, macOS, and Linux. Dynamic typing: You don't need to specify data types when declaring variables, and they can change type dynamically. It's commonly used by developers, scientists, and analysts for tasks ranging from simple scripting to large-scale applications.";
+            String textToSpeak = getString(R.string.python_description);
             tts.speak(textToSpeak);
         });
     }

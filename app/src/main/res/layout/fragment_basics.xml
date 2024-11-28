@@ -19,7 +19,8 @@
             android:paddingBottom="16dp"
             android:text="Starting with the basics"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <!-- Explanation of how printing works in Python -->
         <TextView
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             android:text="In Python, you can display output using the 'print()' function. For example, to print 'Hello, World!', you would use the following code:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <!-- Code example for Hello World -->
         <TextView
@@ -38,7 +40,8 @@
             android:paddingBottom="24dp"
             android:text="print('Hello, World!')"
             android:textSize="18sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            tools:ignore="HardcodedText" />
 
         <!-- Explanation of newline and concatenation -->
         <TextView
@@ -47,7 +50,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             android:text="To print text on a new line, you can use '\\n' inside the string. If you want to combine two strings, you can use the '+' operator like this:"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <!-- Code example for newline and concatenation -->
         <TextView
@@ -57,7 +61,8 @@
             android:paddingBottom="24dp"
             android:text="print('Hello' + ', World!\\nWelcome to Python!')"
             android:textSize="18sp"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            tools:ignore="HardcodedText" />
 
         <!-- Interactive code editor -->
         <EditText
@@ -65,13 +70,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Python code here"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            tools:ignore="Autofill,HardcodedText" />
 
         <Button
             android:id="@+id/run_code_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Run Code" />
+            android:text="Run Code"
+            tools:ignore="HardcodedText" />
 
         <!-- Output display -->
         <TextView
@@ -85,7 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Next" />
+            android:text="Next"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

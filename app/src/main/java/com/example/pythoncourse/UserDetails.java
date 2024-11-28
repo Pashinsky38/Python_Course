@@ -1,5 +1,7 @@
 package com.example.pythoncourse;
 
+import androidx.annotation.NonNull;
+
 public class UserDetails {
     // Member variables to store user details
     private String name;
@@ -22,6 +24,7 @@ public class UserDetails {
     }
 
     // Method to return a string representation of UserDetails
+    @NonNull
     @Override
     public String toString() {
         return "Name: " + name + "\nEmail: " + email + "\nPassword: " + password + "\nPhone Number: " + phoneNumber;

@@ -14,12 +14,10 @@ import java.util.Calendar;
 
 public class HomePage extends AppCompatActivity {
 
-    private HomePageBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = HomePageBinding.inflate(getLayoutInflater());
+        com.example.pythoncourse.databinding.HomePageBinding binding = HomePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());
