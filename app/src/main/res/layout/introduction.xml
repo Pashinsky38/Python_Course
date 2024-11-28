@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Introduction to Python"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         tools:ignore="HardcodedText" />
 
     <!-- Description of Python -->
@@ -21,7 +21,7 @@
         android:layout_width="356dp"
         android:layout_height="388dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:text="@string/python_description" />
 
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:text="Text to Speech"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="550dp"
         tools:ignore="HardcodedText" />
 
     <!-- Next button to BasicsFragment-->
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Next"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="650dp"
         tools:ignore="HardcodedText" />
 
     <!-- FrameLayout for BasicsFragment -->
