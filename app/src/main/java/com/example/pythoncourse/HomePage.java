@@ -33,7 +33,8 @@ public class HomePage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Set click listener for the "Go to Login" button
-        binding.gotoLoginButton.setOnClickListener(view -> navigateToLoginFragment());
+        binding.gotoLoginButton.setOnClickListener(view ->
+                NavigationHelper.navigateToLoginFragment(getSupportFragmentManager()));
 
         // Check if the POST_NOTIFICATIONS permission is granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -43,22 +44,6 @@ public class HomePage extends AppCompatActivity {
             // Permission already granted, schedule the alarm
             scheduleAlarm();
         }
-    }
-
-    // Method to navigate to the LoginFragment
-    private void navigateToLoginFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_login, new LoginFragment())
-                .addToBackStack(null)
-                .commit();
-    }
-
-    // Method to navigate to the RegisterFragment
-    private void navigateToRegisterFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_register, new RegisterFragment())
-                .addToBackStack(null)
-                .commit();
     }
 
     // Inflate the menu
@@ -79,10 +64,10 @@ public class HomePage extends AppCompatActivity {
             Toast.makeText(this, "You are already on HomePage", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.menuLogin) {
-            navigateToLoginFragment();
+            NavigationHelper.navigateToLoginFragment(getSupportFragmentManager());
             return true;
         } else if (id == R.id.menuRegister) {
-            navigateToRegisterFragment();
+            NavigationHelper.navigateToRegisterFragment(getSupportFragmentManager());
             return true;
         } else if (id == R.id.menuCloseApp) {
             finishAffinity();

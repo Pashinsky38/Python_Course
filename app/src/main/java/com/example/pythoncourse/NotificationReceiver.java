@@ -29,7 +29,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle("Python Daily Lesson")
                 .setContentText("Time to learn something new in Python!")
-                .setSmallIcon(R.drawable.nerd_emoji)
+                .setSmallIcon(R.drawable.python_programming_language_icon)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
