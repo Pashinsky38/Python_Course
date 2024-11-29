@@ -20,7 +20,8 @@
             android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="Please enter your name..."
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            tools:ignore="HardcodedText" />
 
         <!-- EditText for entering email -->
         <EditText
@@ -31,7 +32,8 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Please enter your email..."
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            tools:ignore="HardcodedText" />
 
         <!-- EditText for entering password -->
         <EditText
@@ -42,7 +44,8 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Please enter your password..."
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText" />
 
         <!-- EditText for re-entering password -->
         <EditText
@@ -53,7 +56,8 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Please re-enter your password..."
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="HardcodedText" />
 
         <!-- EditText for entering phone number -->
         <EditText
@@ -64,7 +68,8 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Please enter your phone number..."
-            android:inputType="phone" />
+            android:inputType="phone"
+            tools:ignore="HardcodedText" />
 
         <!-- Button for signing up -->
         <Button
@@ -73,7 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="200dp"
-            android:text="Sign up" />
+            android:text="Sign up"
+            tools:ignore="HardcodedText" />
 
         <!-- Button for going back to Login -->
         <Button
@@ -82,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Already registered? Log in" />
+            android:text="Already registered? Log in"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </FrameLayout>

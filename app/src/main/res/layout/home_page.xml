@@ -14,10 +14,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="30dp"
-        android:text="Learning Python" />
+        android:text="Learning Python"
+        tools:ignore="HardcodedText" />
 
     <!-- Python icon -->
     <ImageView
@@ -35,9 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="280dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="with Libby Pashinsky"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        tools:ignore="HardcodedText" />
 
     <!-- Start button -->
     <Button
@@ -47,7 +49,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="590dp"
         android:text="Press on button to continue"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
 
 
     <!-- Login fragment container -->

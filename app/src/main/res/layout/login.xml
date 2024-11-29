@@ -19,7 +19,8 @@
         android:ems="10"
         android:textColorHint="#FFFFFF"
         android:hint="Enter the Email..."
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="HardcodedText" />
 
     <!-- EditText for entering password -->
     <EditText
@@ -31,7 +32,8 @@
         android:layout_gravity="center"
         android:ems="10"
         android:hint="Enter the password..."
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        tools:ignore="HardcodedText" />
 
     <!-- Button for logging in -->
     <Button
@@ -40,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="250dp"
-        android:text="Login" />
+        android:text="Login"
+        tools:ignore="HardcodedText" />
 
     <!-- Button for signing up -->
     <Button
@@ -49,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Sign up" />
+        android:text="Sign up"
+        tools:ignore="HardcodedText" />
 
     <!-- Button for going back to HomePage-->
     <Button
@@ -58,5 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Go back" />
+        android:text="Go back"
+        tools:ignore="HardcodedText" />
 </LinearLayout>
