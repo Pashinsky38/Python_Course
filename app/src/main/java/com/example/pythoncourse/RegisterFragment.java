@@ -1,6 +1,5 @@
 package com.example.pythoncourse;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +47,13 @@ public class RegisterFragment extends Fragment {
 
             // Insert user data into the database
             HelperDB helperDB = new HelperDB(getActivity());
-            helperDB.insertUser(name, email, password, phoneNumber);
-            Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
+            boolean isInserted = helperDB.insertUser(name, email, password, phoneNumber);
+            if (isInserted) {
+                Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
+                navigateToLoginFragment();
+            } else {
+                Toast.makeText(getActivity(), "Failed to register user", Toast.LENGTH_SHORT).show();
+            }
 
             // Navigate to LoginFragment after successful registration
             navigateToLoginFragment();
@@ -67,10 +71,5 @@ public class RegisterFragment extends Fragment {
                 .beginTransaction()
                 .replace(R.id.fragment_register, loginFragment)
                 .commit();
-    }
-
-    // Navigate to the HomePage activity
-    private void navigateToHomePage() {
-        startActivity(new Intent(getActivity(), HomePage.class));
     }
 }
