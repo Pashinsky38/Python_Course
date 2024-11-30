@@ -1,6 +1,5 @@
 package com.example.pythoncourse;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,17 +42,16 @@ public class LoginFragment extends Fragment {
             // Authenticate user
             if (isUserRegistered(emailLogin, passwordLogin)) {
                 // Navigate to Introduction activity if login is successful
-                Intent intent = new Intent(getActivity(), Introduction.class);
-                startActivity(intent);
+                NavigationHelper.navigateToIntroduction(getActivity());
             } else {
                 Toast.makeText(getActivity(), "Invalid email or password", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Set click listener for the sign up button
-        binding.buttonSignUp.setOnClickListener(v -> navigateToRegisterFragment());
+        binding.buttonSignUp.setOnClickListener(v -> NavigationHelper.navigateToRegisterFragment(getActivity().getSupportFragmentManager()));
         // Set click listener for the skip button
-        binding.gotoHomePageButton.setOnClickListener(v -> navigateToHomePage());
+        binding.gotoHomePageButton.setOnClickListener(v -> NavigationHelper.navigateToHomePage(getActivity()));
 
         return view;
     }
@@ -62,20 +60,5 @@ public class LoginFragment extends Fragment {
     private boolean isUserRegistered(String email, String password) {
         String storedPassword = dbHelper.getPasswordByEmail(email);
         return password.equals(storedPassword);
-    }
-
-    // Navigate to the RegisterFragment
-    private void navigateToRegisterFragment() {
-        RegisterFragment registerFragment = new RegisterFragment();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_register, registerFragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    // Navigate to the HomePage activity
-    private void navigateToHomePage() {
-        startActivity(new Intent(getActivity(), HomePage.class));
     }
 }

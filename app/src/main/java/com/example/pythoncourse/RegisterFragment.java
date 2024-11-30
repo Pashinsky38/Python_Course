@@ -50,26 +50,14 @@ public class RegisterFragment extends Fragment {
             boolean isInserted = helperDB.insertUser(name, email, password, phoneNumber);
             if (isInserted) {
                 Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_SHORT).show();
-                navigateToLoginFragment();
+                NavigationHelper.navigateToLoginFromRegister(getActivity().getSupportFragmentManager());
             } else {
                 Toast.makeText(getActivity(), "Failed to register user", Toast.LENGTH_SHORT).show();
             }
-
-            // Navigate to LoginFragment after successful registration
-            navigateToLoginFragment();
         });
 
-        binding.newLoginButton.setOnClickListener(v -> navigateToLoginFragment());
+        binding.newLoginButton.setOnClickListener(v -> NavigationHelper.navigateToLoginFromRegister(getActivity().getSupportFragmentManager()));
 
         return view;
-    }
-
-    // Navigate to the LoginFragment
-    private void navigateToLoginFragment() {
-        LoginFragment loginFragment = new LoginFragment();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_register, loginFragment)
-                .commit();
     }
 }
